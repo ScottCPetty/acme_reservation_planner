@@ -21,5 +21,10 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500).send({ error: error });
 });
 
-const init = async () => {};
+const init = async () => {
+  await client.connect();
+  console.log("connected to database");
+  await createTables();
+  console.log("created tables");
+};
 init();
