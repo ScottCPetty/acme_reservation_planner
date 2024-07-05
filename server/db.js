@@ -4,13 +4,28 @@ const client = new pg.Client(
 );
 const uuid = require("uuid");
 
-const createTables = async () => {};
-const createCustomer = async () => {};
-const createRestaurant = async () => {};
-const fetchCustomers = async () => {};
-const fetchRestaurants = async () => {};
-const createReservation = async () => {};
-const destroyReservation = async () => {};
+const createTables = async () => {
+  const SQL = ``;
+  await client.query(SQL);
+};
+const createCustomer = async () => {
+  const SQL = ``;
+};
+const createRestaurant = async () => {
+  const SQL = ``;
+};
+const fetchCustomers = async () => {
+  const SQL = ``;
+};
+const fetchRestaurants = async () => {
+  const SQL = ``;
+};
+const createReservation = async () => {
+  const SQL = ``;
+};
+const destroyReservation = async () => {
+  const SQL = ``;
+};
 
 module.exports = {
   client,
