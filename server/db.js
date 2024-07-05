@@ -5,7 +5,26 @@ const client = new pg.Client(
 const uuid = require("uuid");
 
 const createTables = async () => {
-  const SQL = ``;
+  const SQL = `
+    DROP TABLE IF EXISTS reservations;
+    DROP TABLE IF EXISTS customers;
+    DROP TABLE IF EXISTS restaurants;
+    CREATE TABLE customers(
+      id UUID PRIMARY KEY,
+      name VARCHAR(255) NOT NULL
+    );
+    CREATE TABLE restaurants(
+      id UUID PRIMARY KEY,
+      name VARCHAR(255) NOT NULL
+    );
+    CREATE TABLE reservations(
+      id UUID PRIMARY KEY,
+      date DATE NOT NULL,
+      party_count INTEGER DEFAULT 2 NOT NULL,
+      customer_id UUID REFERENCES customers(id) NOT NULL,
+      restaurant_id UUID REFERENCES restaurants(id) NOT NULL
+    );
+  `;
   await client.query(SQL);
 };
 const createCustomer = async () => {
