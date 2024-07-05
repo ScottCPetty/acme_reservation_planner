@@ -20,18 +20,30 @@ const createTables = async () => {
     CREATE TABLE reservations(
       id UUID PRIMARY KEY,
       date DATE NOT NULL,
-      party_count INTEGER DEFAULT 2 NOT NULL,
-      customer_id UUID REFERENCES customers(id) NOT NULL,
-      restaurant_id UUID REFERENCES restaurants(id) NOT NULL
+      party_count INTEGER NOT NULL,
+      restaurant_id UUID REFERENCES restaurants(id) NOT NULL,
+      customer_id UUID REFERENCES customers(id) NOT NULL
     );
   `;
   await client.query(SQL);
 };
-const createCustomer = async () => {
-  const SQL = ``;
+const createCustomer = async ({ name }) => {
+  const SQL = `
+    INSERT INTO customers(id, name)
+    VALUES($1, $2)
+    RETURNING *
+  `;
+  const response = await client.query(SQL, [uuid.v4(), name]);
+  return response.rows[0];
 };
-const createRestaurant = async () => {
-  const SQL = ``;
+const createRestaurant = async ({ name }) => {
+  const SQL = `
+    INSERT INTO restaurants(id, name)
+    VALUES($1, $2)
+    RETURNING *
+  `;
+  const response = await client.query(SQL, [uuid.v4(), name]);
+  return response.rows[0];
 };
 const fetchCustomers = async () => {
   const SQL = ``;
