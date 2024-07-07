@@ -7,6 +7,7 @@ const {
   fetchRestaurants,
   createReservation,
   destroyReservation,
+  fetchReservations,
 } = require("./db");
 const express = require("express");
 const app = express();
@@ -26,7 +27,13 @@ app.get("/api/restaurants", async (req, res, next) => {
     console.log(error);
   }
 });
-// app.get("/api/reservations", async (req, res, next) => {});
+app.get("/api/reservations", async (req, res, next) => {
+  try {
+    res.send(await fetchReservations());
+  } catch (error) {
+    console.log(error);
+  }
+});
 app.post("/api/customers/:id/reservations", async (req, res, next) => {
   try {
     res.status(201).send(
@@ -86,7 +93,7 @@ const init = async () => {
       customer_id: Paul.id,
     }),
   ]);
-  console.log(await fetchVacations());
+  console.log(await fetchReservations());
   const port = process.env.PORT || 3000;
   app.listen(port, () => console.log(`listening on port ${port}`));
 };

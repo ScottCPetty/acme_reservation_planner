@@ -1,6 +1,7 @@
 const pg = require("pg");
 const client = new pg.Client(
-  process.env.DATABASE_URL || "postgres://localhost/acme_reservation_planner"
+  process.env.DATABASE_URL ||
+    "postgres://postgres:password@localhost/acme_reservation_planner"
 );
 const uuid = require("uuid");
 
@@ -61,6 +62,14 @@ const fetchRestaurants = async () => {
   const response = await client.query(SQL);
   return response.rows;
 };
+const fetchReservations = async () => {
+  const SQL = `
+    SELECT *
+    FROM reservations
+  `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
 const createReservation = async ({
   date,
   party_count,
@@ -98,4 +107,5 @@ module.exports = {
   fetchRestaurants,
   createReservation,
   destroyReservation,
+  fetchReservations,
 };
